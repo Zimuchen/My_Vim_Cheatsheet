@@ -1,0 +1,302 @@
+% Created by Zmchary, as of 2016-12-31
+% modified 2017-01-31
+% Fell free to circulate this cheatsheet.
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\usepackage{soul}
+
+
+
+\pdfinfo{
+  /Creator (TeX)
+  /Producer (pdfTeX 1.40.0)
+  /Author (Zimu)
+  /Subject (Cheatsheet)
+  /Keywords (Vim, latex, pdftex, tex)}
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.2in,left=.2in,right=.2in,bottom=.2in} }
+    {\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    }
+
+% Turn off header and footer
+\pagestyle{empty}
+\pagenumbering{gobble}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+
+% \author{Zmchary}
+% \title{Cheatsheet for Vim}
+\renewcommand{\title}[1]{{\normalfont\sffamily\huge\bfseries #1}\vspace{1ex}}
+\def\leader{<Leader>}
+\def\locleader{<LocalLeader>}
+
+\begin{document}
+\raggedright
+\title{Cheatsheet for Vim}
+\hskip 3cm {\tt \leader}: {\tt ,} \hskip 1cm {\tt \locleader}: {\tt \\}%
+\newlength{\MyLen}
+\settowidth{\MyLen}{\texttt{letterpaper}/\texttt{a4paper} \ }
+
+
+\begin{multicols}{3}
+\section{Common Use}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+    \hline \hline
+   Default shortcut   & Menu entry       \\
+   \hline
+   \verb|zq|          & :close          \\
+   \verb|zQ|          & :qa!            \\
+   \verb|zs|          & :update         \\
+   \hline
+   \verb|+|           & expand region           \\
+   \verb|-|           & shrinkage region        \\
+   \hline
+   \verb|<F2>|        & Toggle VimFiler       \\
+   \verb|<F3>|        & show Tagbar           \\
+   \verb|<F8>|        & change colour           \\
+   \verb|<F9>|        & paste toggle           \\
+   \hline
+   \verb|:map|        & show all key mapping           \\
+   \hline
+   \verb|<Leader> z|  & like winredo   \\
+   \verb|<Leader> c|  & close Quickfix \\
+   \hline
+   \verb|<Leader> G|  & Goyo           \\
+    \hline \hline
+   % \verb|t|           & add a new line below           \\
+   % \verb|T|           & add a new line above           \\
+   % \hline
+   % \verb|<leader> t=| & Tabularize with \verb|=|           \\
+   % \verb|<leader> t-| & Tabularize with \verb|<-|          \\
+   % \hline
+   % \verb|<leader> ve| & edit .vimrc \\
+   % \verb|<leader> vs| & source .vimrc\\
+   % \hline
+   % \verb|<C-p>|       & CtrlP           \\
+   % \verb|<leader> b|  & :CtrlPBuffer    \\
+   % \verb|<F12>|       & show number           \\
+   % \verb|<Leader> x|  & Toggle auto close Mappings           \\
+\end{tabular}
+
+
+\section{Jumps}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+    \hline \hline
+   Default shortcut   & Menu entry       \\
+   \hline
+   Quickfix           &                 \\
+   \verb|]q|          & :cnext          \\
+   \verb|[q|          & :cprev          \\
+   \verb|]l|          & :lnext          \\
+   \verb|[l|          & :lprev          \\
+   \hline
+   Buffers/Tabs       &                 \\
+   \verb|]b|          & :bnext          \\
+   \verb|[b|          & :bprev          \\
+   \verb|]t|          & :tabn           \\
+   \verb|[t|          & :tabp           \\
+   \hline
+   Tab              &                 \\
+   \verb|<tab>|       & next windown    \\
+   \verb|<S-tab>|     & previous windown\\
+   \hline\hline
+\end{tabular}
+\vfill
+\vfill
+
+\section{fold} 
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+  \hline \hline
+   Default shortcut & Menu entry       \\
+   \verb|zf|        & create a fold           \\
+   \verb|zc|        & close           \\
+   \verb|zo|        & open           \\
+   \verb|zm(M)|     & close All           \\
+   \verb|zi|        & zMzvzz          \\
+   \verb|zr|        & open All (nested)           \\
+   \verb|zj|        & move to next fold           \\
+   \verb|zk|        & move to previous fold           \\
+   \hline
+   \verb|z[|        & put foldmarker \verb|{{{| \\
+   \verb|z]|        & put foldmarker \verb|}}}| \\
+  \hline \hline
+\end{tabular}
+\vfill
+
+\section{fzf}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+    \hline \hline
+   Default shortcut     & Menu entry       \\
+   \verb|<C-P>|         & open file in current fold    \\
+   \verb|<Leader> bb|   & Buffers           \\
+   \verb|<Leader> ss|   & search word in buffer         \\
+   \verb|<Leader> ag|   & search under in all files     \\
+   \verb|<Leader> mm|   & search in all marks           \\
+   \hline
+   \verb|<Leader><Enter>|   & fzf-maps           \\
+  \hline \hline
+  \verb|<C-X><C-l>|     & complete-line    \\
+  \verb|<C-X><C-j>|     & complete-file-name-ag    \\
+\end{tabular}
+
+
+\section{unite}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+  \hline \hline
+   Default shortcut       & Menu entry       \\
+   \verb|[unite]|         & \verb|;|           \\
+   \verb|[unite] me|      & search word in buffer           \\
+   \verb|[unite] ss|       & same with \verb|, ss|        \\
+   \verb|[unite] bb|       & search all files           \\
+   %\verb|[unite] r|       & search in register           \\
+   \verb|[unite] o|       & outline           \\
+  \hline \hline
+\end{tabular}
+
+\section{easymotion} 
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+    \hline \hline
+   Default shortcut  & Menu entry       \\
+   easymotion-prefix & \verb|,,|         \\
+   \verb|,,s|        & Find \{char\}           \\
+   \verb|,,f|        & find \{char\} to the right      \\
+   \verb|,,F|        & find \{char\} to the left       \\
+   \verb|,,w(W)|     & Beginning of the word (forward)      \\
+   \verb|,,b(B)|     & Beginning of the word (back)         \\
+   \verb|,,e(E)|     & End of the word (forward)         \\
+   \verb|,,ge|       & End of the word (back)   \\
+   \verb|,,n|        & Jump to lastest ``/''           \\
+    \hline \hline
+\end{tabular}
+\vfill
+
+\section{vim-surround} 
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+  \hline \hline
+   Default shortcut      & Menu entry       \\
+   \verb|ds{"}|          & delete           \\
+   \verb|cs])|           & change {\tt[]} to {\tt()}    \\
+   \verb|ysw(W){"}|      & add        \\
+   \textit{v}\verb|S{'}| & \textit{v} mode           \\
+  \hline \hline
+\end{tabular}
+\vfill
+
+\section{Incsearch}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+  \hline \hline
+   Default shortcut       & Menu entry       \\
+   \verb|/|               & \verb|;|           \\
+   \verb|?/|              & search word in buffer           \\
+   \verb|g/|              & search all files           \\
+   \verb|n(N)|            & search in register           \\
+   \verb|*(#)|            & search in register           \\
+   \verb|g*(#)|           & search in register           \\
+  \hline \hline
+\end{tabular}
+
+\section{show mark} 
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+    \hline \hline
+   Default shortcut & Menu entry       \\
+  \verb|mx |        & Toggle mark 'x' \\
+  \verb|dmx|        & Remove mark 'x' \\
+  \hline
+  \verb|'x|         & jump to mark 'x' \\
+  \verb|'.|         & jump to the last edit made \\
+  \hline
+  \verb|:mark|      & shows all marks set \\
+  \verb|:jumps|     & shows jump list \\
+  \hline
+  \verb|<C-o>|      & moves to the last jump   \\
+  \verb|<C-i>|      & moves to the previous jump   \\
+  \hline \hline
+\end{tabular}
+\vfill
+
+\section{Nvim-R}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+    \hline \hline
+   Default shortcut  & Menu entry       \\
+   \verb|; rf|       & Start R (default)\\
+   \verb|; rq|       & Close R (no save)\\
+   \hline
+   \verb|; ff|       & Function (cur)                       \\
+   \verb|; fe|       & Function (cur, echo)                 \\
+   \verb|; fd|       & Function (cur and down)              \\
+   \verb|; fa|       & Function (cur, echo and down)        \\
+   \hline
+   \verb|; l|        & Line                                  \\
+   \verb|; d|        & Line (and down)                       \\
+   \verb|; q|        & Line (and new one)                    \\
+   \verb|; r<Left>|  & Left part of line (cur)        \\
+   \verb|; r<Right>| & Right part of line (cur)       \\
+   \verb|; o|        & Line (evaluate and insert the output as comment)  \\
+   \hline
+   \verb|; ro|       & Show/Update Object Browser        \\
+   \verb|; r=|       & Expand (all lists)                \\
+   \hline
+   \verb|; rl|       & List space             \\
+   \verb|; rr|       & Clear console          \\
+   \verb|; rm|       & Clear all              \\
+   \verb|; rp|       & Print (cur)            \\
+   \verb|; rn|       & Names (cur)            \\
+   \verb|; rt|       & Structure (cur)        \\
+   \verb|; rv|       & View data.frame (cur)  \\
+   \hline
+   \verb|<C-x><C-o>| & Complete object name              \\
+   \verb|<C-d>|      & Complete object name without \$   \\
+   \verb|<C-x><C-a>| & Complete function arguments       \\
+   \verb|==|         & Indent (line)                     \\
+   \verb|=|          & Indent (selected lines)           \\
+   \verb|g=G|        & Indent (whole buffer)             \\
+    \hline \hline
+\end{tabular}
+\vfill
+\section{easymotion} 
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+    \hline \hline
+   Default shortcut  &  Menu entry       \\
+\end{tabular}
+\vfill
+% section  (end)
+
+
+
+\end{multicols}
+
+\end{document}
