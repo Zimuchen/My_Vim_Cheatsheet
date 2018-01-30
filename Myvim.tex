@@ -7,13 +7,15 @@
 \usepackage{ifthen}
 \usepackage[landscape]{geometry}
 \usepackage{amsmath,amsthm,amsfonts,amssymb}
-\usepackage{color,graphicx,overpic}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage{graphicx,overpic}
 \usepackage{soul}
+\usepackage{hyperref}
 
 
 
 \pdfinfo{
-  /Creator (TeX)
+  /Creator (LaTeX)
   /Producer (pdfTeX 1.40.0)
   /Author (Zimu)
   /Subject (Cheatsheet)
@@ -63,11 +65,12 @@
 \renewcommand{\title}[1]{{\normalfont\sffamily\huge\bfseries #1}\vspace{1ex}}
 \def\leader{<Leader>}
 \def\locleader{<LocalLeader>}
+\def\S{\textcolor{red}{\tt search }}
 
 \begin{document}
 \raggedright
 \title{Cheatsheet for Vim}
-\hskip 3cm {\tt \leader}: {\tt ,} \hskip 1cm {\tt \locleader}: {\tt \\}%
+\hskip 3cm {\tt \leader}: {\tt ,} \hskip 1cm {\tt \locleader}: {\textbf{\textbackslash}}%
 \newlength{\MyLen}
 \settowidth{\MyLen}{\texttt{letterpaper}/\texttt{a4paper} \ }
 
@@ -82,15 +85,13 @@
    \verb|zQ|          & :qa!            \\
    \verb|zs|          & :update         \\
    \hline
-   \verb|+|           & expand region           \\
-   \verb|-|           & shrinkage region        \\
-   \hline
    \verb|<F2>|        & Toggle VimFiler       \\
    \verb|<F3>|        & show Tagbar           \\
    \verb|<F8>|        & change colour           \\
    \verb|<F9>|        & paste toggle           \\
    \hline
    \verb|:map|        & show all key mapping           \\
+   \verb|<Leader> <Enter>| & show all key mapping by fzf \\
    \hline
    \verb|<Leader> z|  & like winredo   \\
    \verb|<Leader> c|  & close Quickfix \\
@@ -111,45 +112,66 @@
    % \verb|<F12>|       & show number           \\
    % \verb|<Leader> x|  & Toggle auto close Mappings           \\
 \end{tabular}
-
+\vfill
 
 \section{Jumps}
 \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
-    \hline \hline
+  \hline \hline
    Default shortcut   & Menu entry       \\
-   \hline
-   Quickfix           &                 \\
+  \hline
+    Quickfix          &                 \\
    \verb|]q|          & :cnext          \\
    \verb|[q|          & :cprev          \\
    \verb|]l|          & :lnext          \\
    \verb|[l|          & :lprev          \\
-   \hline
-   Buffers/Tabs       &                 \\
+   \verb|<Leader> c|  & close          \\
+  \hline
+     Buffers/Tabs     &                 \\
    \verb|]b|          & :bnext          \\
    \verb|[b|          & :bprev          \\
    \verb|]t|          & :tabn           \\
    \verb|[t|          & :tabp           \\
-   \hline
-   Tab              &                 \\
+  \hline
+     Tab              &                 \\
    \verb|<tab>|       & next windown    \\
    \verb|<S-tab>|     & previous windown\\
+  \hline
+    Line            &                          \\ 
+  \verb|<C-o>|      & moves to the last jump   \\
+  \verb|<C-i>|      & moves to the previous jump   \\
    \hline\hline
 \end{tabular}
 \vfill
+\section{show mark} 
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+    \hline \hline
+   Default shortcut & Menu entry       \\
+  \hline
+  \verb|mx |        & Toggle mark 'x' \\
+  \verb|dmx|        & Remove mark 'x' \\
+  \hline
+  \verb|'x|         & jump to mark 'x' \\
+  \verb|'.|         & jump to the last edit made \\
+  \hline
+  \verb|:mark|      & shows all marks set \\
+  \verb|:jumps|     & shows jump list \\
+  \hline \hline
+\end{tabular}
 \vfill
 
 \section{fold} 
 \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
   \hline \hline
    Default shortcut & Menu entry       \\
-   \verb|zf|        & create a fold           \\
-   \verb|zc|        & close           \\
-   \verb|zo|        & open           \\
-   \verb|zm(M)|     & close All           \\
-   \verb|zi|        & zMzvzz          \\
-   \verb|zr|        & open All (nested)           \\
+  \hline
+   \verb|zi|        & focue model          \\
+   \verb|zo|        & open this fold          \\
+   \verb|zc|        & smart close           \\
    \verb|zj|        & move to next fold           \\
    \verb|zk|        & move to previous fold           \\
+   \verb|zr|        & open \textcolor{ForestGreen}{All} fold (nested)   \\
+   \verb|zm(M)|     & close \textcolor{ForestGreen}{All} fold       \\
+   % \verb|zf|        & create a fold           \\
    \hline
    \verb|z[|        & put foldmarker \verb|{{{| \\
    \verb|z]|        & put foldmarker \verb|}}}| \\
@@ -159,38 +181,43 @@
 
 \section{fzf}
 \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
-    \hline \hline
-   Default shortcut     & Menu entry       \\
-   \verb|<C-P>|         & open file in current fold    \\
-   \verb|<Leader> bb|   & Buffers           \\
-   \verb|<Leader> ss|   & search word in buffer         \\
-   \verb|<Leader> ag|   & search under in all files     \\
-   \verb|<Leader> mm|   & search in all marks           \\
-   \hline
-   \verb|<Leader><Enter>|   & fzf-maps           \\
   \hline \hline
-  \verb|<C-X><C-l>|     & complete-line    \\
-  \verb|<C-X><C-j>|     & complete-file-name-ag    \\
+   Default shortcut     & Menu entry       \\
+  \hline
+   \verb|<C-p>|         & open file in current fold    \\
+   \verb|<Leader> bb|   & show all buffers           \\
+   \verb|<Leader> fw|   & \S word in all files         \\
+   \verb|<Leader> fl|   & \S under word in all files     \\
+   \verb|<Leader> mm|   & \S in all marks           \\
+  \hline
+    \verb|<C-X><C-l>|     & complete-line    \\
+    \verb|<C-X><C-j>|     & complete-file-name-ag    \\
+    \verb|<Leader><Enter>|   & fzf-maps           \\
+  \hline \hline
 \end{tabular}
-
+\vfill
 
 \section{unite}
 \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
   \hline \hline
-   Default shortcut       & Menu entry       \\
-   \verb|[unite]|         & \verb|;|           \\
-   \verb|[unite] me|      & search word in buffer           \\
-   \verb|[unite] ss|       & same with \verb|, ss|        \\
-   \verb|[unite] bb|       & search all files           \\
+  Default shortcut       & Menu entry       \\
+  \hline
+  \verb|[unite]|         & \verb|,|           \\
+  \verb|[unite] me|      & show message           \\
+  \verb|[unite] mr|       & show register        \\
+   % \verb|[unite] bb|       & search all files           \\
    %\verb|[unite] r|       & search in register           \\
-   \verb|[unite] o|       & outline           \\
+  \verb|[unite] mo|       & show outline           \\
+  \verb|[unite] fs|       & \S anything in this file       \\
   \hline \hline
 \end{tabular}
+\vfill
 
 \section{easymotion} 
 \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
     \hline \hline
    Default shortcut  & Menu entry       \\
+  \hline
    easymotion-prefix & \verb|,,|         \\
    \verb|,,s|        & Find \{char\}           \\
    \verb|,,f|        & find \{char\} to the right      \\
@@ -208,6 +235,7 @@
 \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
   \hline \hline
    Default shortcut      & Menu entry       \\
+  \hline
    \verb|ds{"}|          & delete           \\
    \verb|cs])|           & change {\tt[]} to {\tt()}    \\
    \verb|ysw(W){"}|      & add        \\
@@ -216,67 +244,84 @@
 \end{tabular}
 \vfill
 
-\section{Incsearch}
+\section{text-objects} 
+\verb|<S-v>| to start {\tt text-object} model ({\tt x} model)
 \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
   \hline \hline
-   Default shortcut       & Menu entry       \\
-   \verb|/|               & \verb|;|           \\
-   \verb|?/|              & search word in buffer           \\
-   \verb|g/|              & search all files           \\
-   \verb|n(N)|            & search in register           \\
-   \verb|*(#)|            & search in register           \\
-   \verb|g*(#)|           & search in register           \\
-  \hline \hline
-\end{tabular}
-
-\section{show mark} 
-\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
-    \hline \hline
-   Default shortcut & Menu entry       \\
-  \verb|mx |        & Toggle mark 'x' \\
-  \verb|dmx|        & Remove mark 'x' \\
-  \hline
-  \verb|'x|         & jump to mark 'x' \\
-  \verb|'.|         & jump to the last edit made \\
-  \hline
-  \verb|:mark|      & shows all marks set \\
-  \verb|:jumps|     & shows jump list \\
-  \hline
-  \verb|<C-o>|      & moves to the last jump   \\
-  \verb|<C-i>|      & moves to the previous jump   \\
+   Default shortcut      & Menu entry       \\
+   \hline
+   \verb|+|           & expand region           \\
+   \verb|-|           & shrinkage region        \\
+   \hline
+   \verb|i(a)i|           & indent object        \\
+   \verb|i(a)_|           & between the char {\tt \_{}}  \\
+   \verb|i(a)l|           & line object without indent       \\
   \hline \hline
 \end{tabular}
 \vfill
 
+\section{Incsearch}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+  \hline \hline
+   Default shortcut       & Menu entry       \\
+  \hline
+   \verb|/|               & \verb|;|           \\
+   \verb|?/|              & \S word in buffer           \\
+   \verb|g/|              & \S all files           \\
+   \verb|n(N)|            & \S in register           \\
+   \verb|*(#)|            & \S in register           \\
+   \verb|g*(#)|           & \S in register           \\
+  \hline
+   \verb|:%s/patten/bar/g|&  {\tt \%}: range all lines          \\
+   \verb|:%s/patten/bar/gc|& {\tt g}: global in a line      \\
+   \verb|:%s/patten/bar/gc|& {\tt c}: ask for confirmation      \\
+   \verb|:5,12s/patten/bar/g|&  range line 5 to 12          \\
+   \verb|:'a,'b/patten/bar/g|&  range mark {\tt a} to mark {\tt b}  \\
+   \url{http://vim.wikia.com/wiki/Search_and_replace}\\
+  \hline \hline
+\end{tabular}
+\vfill
+
+\section{Command}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+  \hline \hline
+   Default shortcut       & Menu entry       \\
+   \hline
+   \verb|:Color|          & change colour theme           \\
+   \verb|:Plug<TAB>|      & plug install etc.           \\
+  \hline \hline
+\end{tabular}
+\vfill
 \section{Nvim-R}
 \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
     \hline \hline
    Default shortcut  & Menu entry       \\
-   \verb|; rf|       & Start R (default)\\
-   \verb|; rq|       & Close R (no save)\\
+  \hline
+   \verb|<LocalLeader> rf|       & Start R (default)\\
+   \verb|<LocalLeader> rq|       & Close R (no save)\\
    \hline
-   \verb|; ff|       & Function (cur)                       \\
-   \verb|; fe|       & Function (cur, echo)                 \\
-   \verb|; fd|       & Function (cur and down)              \\
-   \verb|; fa|       & Function (cur, echo and down)        \\
+   \verb|<LocalLeader> ff|       & Function (cur)                       \\
+   \verb|<LocalLeader> fe|       & Function (cur, echo)                 \\
+   \verb|<LocalLeader> fd|       & Function (cur and down)              \\
+   \verb|<LocalLeader> fa|       & Function (cur, echo and down)        \\
    \hline
-   \verb|; l|        & Line                                  \\
-   \verb|; d|        & Line (and down)                       \\
-   \verb|; q|        & Line (and new one)                    \\
-   \verb|; r<Left>|  & Left part of line (cur)        \\
-   \verb|; r<Right>| & Right part of line (cur)       \\
-   \verb|; o|        & Line (evaluate and insert the output as comment)  \\
+   \verb|<LocalLeader> l|        & Line                                  \\
+   \verb|<LocalLeader> d|        & Line (and down)                       \\
+   \verb|<LocalLeader> q|        & Line (and new one)                    \\
+   % \verb|<LocalLeader> r<Left>|  & Left part of line (cur)        \\
+   % \verb|<LocalLeader> r<Right>| & Right part of line (cur)       \\
+   % \verb|<LocalLeader> o|        & Line (evaluate and insert the output as comment)  \\
    \hline
-   \verb|; ro|       & Show/Update Object Browser        \\
-   \verb|; r=|       & Expand (all lists)                \\
+   \verb|<LocalLeader> ro|       & Show/Update Object Browser        \\
+   \verb|<LocalLeader> r=|       & Expand (all lists)                \\
    \hline
-   \verb|; rl|       & List space             \\
-   \verb|; rr|       & Clear console          \\
-   \verb|; rm|       & Clear all              \\
-   \verb|; rp|       & Print (cur)            \\
-   \verb|; rn|       & Names (cur)            \\
-   \verb|; rt|       & Structure (cur)        \\
-   \verb|; rv|       & View data.frame (cur)  \\
+   \verb|<LocalLeader> rl|       & List space             \\
+   \verb|<LocalLeader> rr|       & Clear console          \\
+   \verb|<LocalLeader> rm|       & Clear all              \\
+   \verb|<LocalLeader> rp|       & Print (cur)            \\
+   \verb|<LocalLeader> rn|       & Names (cur)            \\
+   \verb|<LocalLeader> rt|       & Structure (cur)        \\
+   \verb|<LocalLeader> rv|       & View data.frame (cur)  \\
    \hline
    \verb|<C-x><C-o>| & Complete object name              \\
    \verb|<C-d>|      & Complete object name without \$   \\
@@ -287,16 +332,9 @@
     \hline \hline
 \end{tabular}
 \vfill
-\section{easymotion} 
-\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
-    \hline \hline
-   Default shortcut  &  Menu entry       \\
-\end{tabular}
-\vfill
 % section  (end)
 
 
 
 \end{multicols}
-
 \end{document}
