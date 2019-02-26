@@ -138,7 +138,8 @@
   \hline
     Line            &                          \\ 
   \verb|<C-o>|      & moves to the last jump   \\
-  \verb|<C-i>|      & moves to the previous jump   \\
+  \verb|<C-<TAB>>|  & back to the jump   \\
+  \verb|<C-i>|      & ??   \\
    \hline\hline
 \end{tabular}
 \vfill
@@ -184,7 +185,6 @@
   \hline \hline
    Default shortcut     & Menu entry       \\
   \hline
-   \verb|<C-p>|         & open file in current fold    \\
    \verb|<Leader> bb|   & show all buffers           \\
    \verb|<Leader> fw|   & \S word in all files         \\
    \verb|<Leader> fl|   & \S under word in all files     \\
@@ -202,6 +202,7 @@
   \hline \hline
   Default shortcut       & Menu entry       \\
   \hline
+   \verb|<C-p>|         & open file in current fold    \\
   \verb|[unite]|         & \verb|,|           \\
   \verb|[unite] me|      & show message           \\
   \verb|[unite] mr|       & show register        \\
@@ -289,6 +290,7 @@
    \hline
    \verb|:Color|          & change colour theme           \\
    \verb|:Plug<TAB>|      & plug install etc.           \\
+   \verb|:Chomp|          & clean space            \\
   \hline \hline
 \end{tabular}
 \vfill
@@ -334,7 +336,33 @@
 \vfill
 % section  (end)
 
+\section{Fugitive}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+  \hline \hline
+   Default shortcut       & Menu entry       \\
+   \hline
+   \verb|:Gwrite|          & stage           \\
+   \verb|:Gread|          & revert to last checked           \\
+   \verb|:Gremove|      & remove a file           \\
+   \verb|:Gmove|          & rename            \\
+  \hline \hline
+\end{tabular}
+\vfill
+
+\newpage
+
+\section{Shell}
+\begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+  \hline \hline
+   Default shortcut       & Menu entry       \\
+   \hline
+   \verb|<C-r>|          & \S search command in history  \\
+   \verb|ag|             & search everything           \\
+  \hline \hline
+\end{tabular}
+\vfill
 
 
 \end{multicols}
+
 \end{document}
